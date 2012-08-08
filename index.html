@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>Test iPad touch events</title>
+    <style type="text/css" media="screen">
+      body{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        margin: 0
+      }
+      #debugger{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 190px;
+        height: 200px;
+        padding: 10px;
+        margin: 10px;
+        background: #DDD;
+        border: 1px solid #CCC;
+        z-index: 100;
+      }
+      #touchArea{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #CCC;
+        z-index: 99;
+      }
+      #fireDiv{
+        position: absolute;
+        top: -200px;
+        left: -200px;
+        width: 100px;
+        height: 100px;
+        background: red;
+        z-index: 1000
+      }
+    </style>
+  </head>
+
+  <script type="text/javascript" charset="utf-8">
+
+    window.addEventListener('load', function () {
+
+      var el = document.getElementById("debugger");
+
+      function debbug(text1, text2) {
+        el.getElementsByClassName("event_debugger_X")[0].innerHTML = text1;
+        el.getElementsByClassName("event_debugger_Y")[0].innerHTML = text2;
+      }
+
+      document.getElementById("touchArea").addEventListener("touchstart", touchstart);
+      document.getElementById("touchArea").addEventListener("touchend", touchend);
+      document.getElementById("touchArea").addEventListener("touchmove", touchmove);
+      document.getElementById("touchArea").addEventListener("touchleave", touchleave);
+
+
+      function touchstart (event) {
+        debbug(event.touches[0].clientX, event.touches[0].clientY);
+      }
+
+      function touchmove (event) {
+        var x = event.touches[0].clientX;
+        var y = event.touches[0].clientY;
+        debbug(x, y);
+        followTouch(x, y);
+        console.log(event);
+      }
+
+
+      function touchend (event) {
+        debbug(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+      }
+
+      function touchleave (event) {
+        console.log('leave');
+        debbug(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+      }
+
+      function followTouch (x, y) {
+        var fireDiv = document.getElementById("fireDiv");
+        console.log(fireDiv.style.top);
+        fireDiv.style.left = x + "px";
+        fireDiv.style.top = y + "px";
+      }
+
+
+    });
+
+  </script>
+
+  <body>
+
+    <div id="debugger">
+      <p>
+        Testing touch events
+      </p>
+      <p>
+        <span class="event">Screen X:</span> <span class="event_debugger_X"></span>
+        <br>
+        <span class="event">Screen Y:</span> <span class="event_debugger_Y"></span>
+      </p>
+    </div>
+
+
+    <div id="touchArea">
+      <div id="fireDiv"></div>
+    </div>
+
+  </body>
+</html>
