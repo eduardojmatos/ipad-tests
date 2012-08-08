@@ -35,6 +35,8 @@
         background: #DDD;
         border: 1px solid #CCC;
         z-index: 100;
+        /* tests */
+        display: none
       }
       #touchArea{
         position: absolute;
@@ -68,8 +70,10 @@
       var el = document.getElementById("debugger");
 
       function debbug(text1, text2) {
-        el.getElementsByClassName("event_debugger_X")[0].innerHTML = text1;
-        el.getElementsByClassName("event_debugger_Y")[0].innerHTML = text2;
+        //el.getElementsByClassName("event_debugger_X")[0].innerHTML = text1;
+        //el.getElementsByClassName("event_debugger_Y")[0].innerHTML = text2;
+        console.log("event_debugger_X > " + text1);
+        console.log("event_debugger_Y > " + text2);
       }
 
       document.getElementById("touchArea").addEventListener("touchstart", touchstart);
