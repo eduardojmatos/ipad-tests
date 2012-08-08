@@ -72,21 +72,20 @@
 
       document.getElementById("touchArea").addEventListener("touchstart", touchstart);
       document.getElementById("touchArea").addEventListener("touchend", touchend);
-      document.getElementById("touchArea").addEventListener("touchmove", touchmove);
       document.getElementById("touchArea").addEventListener("touchleave", touchleave);
+
+      document.getElementById("touchArea").addEventListener("touchmove", function (event) {
+        event.preventDefault();
+        var x = event.touches[0].clientX;
+        var y = event.touches[0].clientY;
+        debbug(x, y);
+        followTouch(x, y);
+      }, false );
 
 
       function touchstart (event) {
         debbug(event.touches[0].clientX, event.touches[0].clientY);
       }
-
-      function touchmove (event) {
-        var x = event.touches[0].clientX;
-        var y = event.touches[0].clientY;
-        debbug(x, y);
-        followTouch(x, y);
-      }
-
 
       function touchend (event) {
         debbug(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
