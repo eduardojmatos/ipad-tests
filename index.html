@@ -79,7 +79,6 @@
         var y = event.touches[0].clientY;
         debbug(x, y);
         followTouch(x, y);
-        console.log(event);
       }
 
 
@@ -94,9 +93,8 @@
 
       function followTouch (x, y) {
         var fireDiv = document.getElementById("fireDiv");
-        console.log(fireDiv.style.top);
-        fireDiv.style.left = x + "px";
-        fireDiv.style.top = y + "px";
+        fireDiv.style.left = (x - 50) + "px";
+        fireDiv.style.top = (y - 50) + "px";
       }
 
 
@@ -123,9 +121,7 @@
     </div>
 
 
-
-
-
+    <!--
     <div id="container">
       <div class="inner">
 
@@ -153,6 +149,6 @@
 
 
       </div>
-    </div>
+    </div>-->
   </body>
 </html>
