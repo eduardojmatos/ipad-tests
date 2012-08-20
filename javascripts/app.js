@@ -14,18 +14,11 @@ window.addEventListener('load', function () {
     //el.getElementsByClassName("event_debugger_Y")[0].innerHTML = text2;
   }
 
-  document.getElementById("touchArea").addEventListener("touchstart", touchstart);
+  document.getElementById("touchArea").addEventListener("touchstart", touchmove);
   document.getElementById("touchArea").addEventListener("touchend", touchend);
   document.getElementById("touchArea").addEventListener("touchleave", touchleave);
 
-  document.getElementById("touchArea").addEventListener("touchmove", function (event) {
-    event.preventDefault();
-    var x = event.touches[0].clientX;
-    var y = event.touches[0].clientY;
-    debbug(x, y);
-    followTouch(x, y);
-  }, false );
-
+  document.getElementById("touchArea").addEventListener("touchmove", touchmove, false );
 
   function touchstart (event) {
     debbug(event.touches[0].clientX, event.touches[0].clientY);
@@ -37,6 +30,14 @@ window.addEventListener('load', function () {
 
   function touchleave (event) {
     debbug(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+  }
+
+  function touchmove (event) {
+    event.preventDefault();
+    var x = event.touches[0].clientX;
+    var y = event.touches[0].clientY;
+    debbug(x, y);
+    followTouch(x, y);
   }
 
   function followTouch (x, y) {
