@@ -45,11 +45,7 @@ window.addEventListener('load', function () {
     fireDiv.style.left = (x - 50) + "px";
     fireDiv.style.top = (y - 50) + "px";
 
-    if ( (x - 50) === dragOn.offsetLeft ) {
-      playVideo();
-    }
-
-    if ( (y - 50) === dragOn.offsetTop ) {
+    if ( (x - 50) === dragOn.offsetLeft && (y - 50) === dragOn.offsetTop ) {
       playVideo();
     }
   }
