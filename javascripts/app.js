@@ -1,8 +1,11 @@
 window.addEventListener('load', function () {
 
+  var fireDiv = document.getElementById("fireDiv");
+  var touchArea = document.getElementById('touchArea');
+
   // disable select text for a drag item
-  document.getElementById('touchArea').style.webkitTouchCallout = "none";
-  document.getElementById('fireDiv').style.webkitTouchCallout = "none";
+  touchArea.style.webkitTouchCallout = "none";
+  fireDiv.style.webkitTouchCallout = "none";
 
   // set dragen on div
   var dragOn = document.getElementById('dragOn');
@@ -14,11 +17,11 @@ window.addEventListener('load', function () {
     //el.getElementsByClassName("event_debugger_Y")[0].innerHTML = text2;
   }
 
-  document.getElementById("touchArea").addEventListener("touchstart", touchmove);
-  document.getElementById("touchArea").addEventListener("touchend", touchend);
-  document.getElementById("touchArea").addEventListener("touchleave", touchleave);
+  touchArea.addEventListener("touchstart", touchmove);
+  touchArea.addEventListener("touchend", touchend);
+  touchArea.addEventListener("touchleave", touchleave);
 
-  document.getElementById("touchArea").addEventListener("touchmove", touchmove, false );
+  touchArea.addEventListener("touchmove", touchmove, false );
 
   function touchstart (event) {
     debbug(event.touches[0].clientX, event.touches[0].clientY);
@@ -41,7 +44,6 @@ window.addEventListener('load', function () {
   }
 
   function followTouch (x, y) {
-    var fireDiv = document.getElementById("fireDiv");
     fireDiv.style.left = (x - 50) + "px";
     fireDiv.style.top = (y - 50) + "px";
 
@@ -57,6 +59,5 @@ window.addEventListener('load', function () {
     video.play();
     videoContainer.className = 'videoPlay';
   }
-
 
 });

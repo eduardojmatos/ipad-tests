@@ -36,7 +36,8 @@ body{
   width: 100px;
   height: 100px;
   background: red;
-  z-index: 1000;
+  z-index: 100;
+  border-radius: 50px
 }
 #dragOn{
   position: absolute;
@@ -45,7 +46,9 @@ body{
   width: 100px;
   height: 100px;
   background: yellow;
-  z-index: 1000;
+  z-index: 98;
+  box-shadow: 0 0 30px 5px #999;
+  border-radius: 50px
 }
 #video{
   position: absolute;
