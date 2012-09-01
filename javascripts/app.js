@@ -2,6 +2,11 @@ window.addEventListener('load', function () {
 
   var fireDiv = document.getElementById("fireDiv");
   var touchArea = document.getElementById('touchArea');
+  var lineIn = document.getElementById('lineIn');
+  var timeOnTouch = 0;
+  var starInterval;
+  var animationIsStarted = false;
+  var animationTimeStart = 2000;
 
   // disable select text for a drag item
   touchArea.style.webkitTouchCallout = "none";
@@ -13,8 +18,10 @@ window.addEventListener('load', function () {
   var el = document.getElementById("debugger");
 
   function debbug(text1, text2) {
-    //el.getElementsByClassName("event_debugger_X")[0].innerHTML = text1;
-    //el.getElementsByClassName("event_debugger_Y")[0].innerHTML = text2;
+    /*el.getElementsByClassName("event_debugger_X")[0].innerHTML = text1;
+    console.log("----- debugger ------");
+    console.log(text1, text2);
+    el.getElementsByClassName("event_debugger_Y")[0].innerHTML = text2;*/
   }
 
   touchArea.addEventListener("touchstart", touchmove);
@@ -23,22 +30,36 @@ window.addEventListener('load', function () {
 
   touchArea.addEventListener("touchmove", touchmove, false );
 
-  function touchstart (event) {
+  /*function touchstart (event) {
     debbug(event.touches[0].clientX, event.touches[0].clientY);
-  }
+  }*/
 
   function touchend (event) {
+    if ( animationIsStarted ) {
+      removeTouchEvents();
+    }
+
+    timeOnTouch = 0;
+    clearInterval(starInterval);
+
     debbug(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
   }
 
   function touchleave (event) {
+    
+    timeOnTouch = 0;
+    clearInterval(starInterval);
+
     debbug(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
   }
 
   function touchmove (event) {
     event.preventDefault();
+
     var x = event.touches[0].clientX;
     var y = event.touches[0].clientY;
+
+    if ( timeOnTouch === 0 ) checkAnimationTime();
     debbug(x, y);
     followTouch(x, y);
   }
@@ -58,6 +79,34 @@ window.addEventListener('load', function () {
 
     video.play();
     videoContainer.className = 'videoPlay';
+  }
+
+  function checkAnimationTime() {
+    timeOnTouch = Date.now();
+    
+    starInterval = setInterval( function () {
+      console.log(Date.now() - timeOnTouch);
+      if( (Date.now() - timeOnTouch) >= animationTimeStart ) {
+        clearInterval(starInterval);
+        startAnimation();
+      }
+    }, 10);
+  }
+
+  /* Animation functions */
+  function startAnimation () {
+    lineIn.style.zIndex = 100;
+    lineIn.style.top = fireDiv.style.top;
+    lineIn.style.left = fireDiv.style.left;
+
+    // remove circle from DOM
+    touchArea.removeChild(fireDiv);
+
+
+  }
+
+  function removeTouchEvents () {
+    touchArea.removeEventListener("touchstart touchend touchleave touchmove");
   }
 
 });
